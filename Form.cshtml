@@ -1,0 +1,14 @@
+﻿@if (ViewBag.Error != null)
+{
+    <h2>@ViewBag.Error</h2>
+}
+<form method="post" action="Form">
+    <span>Mail Adresi</span>
+    <input type="text" name="receiverEmail" />
+    <span>Konu</span>
+    <input type="text" name="subject" />
+    <span>Mesaj</span>
+    <input type="text" name="message" />
+
+    <button type="submit">Mesaj Gönder</button>
+</form>

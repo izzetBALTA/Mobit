@@ -1,0 +1,42 @@
+﻿@model urunn.UrunTable
+
+@{
+    ViewBag.Title = "Detay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detay</h2>
+
+<div>
+    <h4>Ürün Tablosu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UrunAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrunAdi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrunResmi)
+        </dt>
+
+        <dd>
+            <img width="75" img height="50" src="@Model.UrunResmi" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrunAçıklaması)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UrunAçıklaması)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Geri Dön", "Index")
+</p>

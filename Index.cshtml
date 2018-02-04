@@ -1,0 +1,149 @@
+﻿@model IEnumerable<urunn.UrunTable>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Scripts/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/datatables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+    <style>
+        span.field-validation-error {
+            color: red;
+        }
+    </style>
+    <script type="text/javascript">
+        function fireDataTable() {
+            var oTable = $('#myDataTable').DataTable({});
+        }
+    </script>
+
+</head>
+<body>
+    <div>
+        <h2>Index</h2>
+
+        <p>
+            @Html.ActionLink("Ürün Ekle", "Create")
+        </p>
+        <table id="myDataTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Ürün Adı</th>
+                    <th>Ürün Resmi</th>
+                    <th>Ürün Açıklaması</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>@item.UrunAdi</td>
+                        <td><img width="75" img height="50" src="@item.UrunResmi" />
+                        <td>
+                            @item.UrunAçıklaması
+                        </td>
+                        <td>
+                            @Html.ActionLink("Düzenle", "Düzenle", new { id = item.UrunId }) |
+                            @Html.ActionLink("Ürün Detayları", "Detay", new { id = item.UrunId }) |
+                            @Html.ActionLink("Sil", "Sil", new { id = item.UrunId })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <script type="text/javascript"> fireDataTable();</script>
+    </div>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+    <link href="~/Scripts/jquery-ui.min.css" rel="stylesheet" />
+
+
+    @*<script>
+            $(document).ready(function () {
+                var oTable = $('#myDataTable').DataTable({
+                    "ajax": {
+                        "url": '/Urun/GetEmployees',
+                        "datatype":"json"
+                    },
+                    "columns": [
+            { "data": "Id", "autowidth": true },
+            { "data": "UrunAdi", "autowidth": true },
+            { "data": "UrunResmi", "autowidth": true },
+            { "data": "UrunAçıklaması", "autowidth": true },
+                    ]
+                })
+                $('.tablecontainer').on('click', 'a.popup', function (e) {
+                    e.preventDefault();
+                    OpenPopup($(this).attr('href'));
+
+
+                })
+
+                function OpenPopup(pageUrl)
+                {
+                    var $pageContent = $('<div/>');
+                    $pageContent.load(pageUrl, function () {
+
+                        $('#popupForm', $pageContent).removeData('validator');
+                        $('#popupForm', $pageContent).removeData('unobtrusiveValidation');
+                        $.validator.unobtrusive.parse('form');
+
+                    });
+
+                    $dialog = $('<div class="popupWindow" style="overflow:auto"></div>')
+                    .html($pageContent)
+                    .dialog({
+                        draggable: false,
+                        autoOpen: false,
+                        resiable: false,
+                        title: 'Popup Dialog',
+                        height: 550,
+                        widht: 600,
+                        close: function () {
+                            $dialog.dialog('destory').remove();
+                        }
+                    })
+
+                    $('.popupWindow').on('submit', '#popupForm', function (e) {
+
+                        var url = $('#popupForm')[0].action;
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: $('#popupForm').serialize(),
+                            success: function (data) {
+                                if (data.status) {
+                                    $dialog.dialog('close');
+                                    oTable.ajax.reload();
+                                }
+                            }
+
+
+                        })
+                        e.preventDefault();
+
+                    })
+                    $dialog.dialog('open');
+
+                }
+
+            })
+        </script>*@
+
+</body>
+</html>
